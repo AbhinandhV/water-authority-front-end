@@ -7,7 +7,7 @@ class userLoginApi{
 
   Future<dynamic>loginUser(String username,String password)async{
     var client=http.Client();
-    var apiUrl=Uri.parse("http://localhost:3001/waterauthority/login");
+    var apiUrl=Uri.parse("http://localhost:3000/waterauthority/login");
     var response=await client.post(apiUrl,
     headers: <String,String>{
       "Content-Type": "application/json; charset=UTF-8"
@@ -33,7 +33,7 @@ Future<dynamic> addSubAdmin(
     )async
 {
   var client=http.Client();
-  var apiurl=Uri.parse("http://localhost:3001/waterauthority/addsubadmin");
+  var apiurl=Uri.parse("http://localhost:3000/waterauthority/addsubadmin");
   var response=await client.post(apiurl,
   headers: <String,String>
   {
@@ -61,7 +61,7 @@ Future<dynamic> addSubAdmin(
 }
 Future<List<Subadmin>> ViewSubadmin()async{
     var client=http.Client();
-    var apiurl=Uri.parse("http://localhost:3001/waterauthority/viewsubadmin");
+    var apiurl=Uri.parse("http://localhost:3000/waterauthority/viewsubadmin");
     var response=await client.post(apiurl);
     if(response.statusCode==200)
       {
@@ -75,7 +75,7 @@ Future<List<Subadmin>> ViewSubadmin()async{
 }
   Future<dynamic> deleteData(String id) async {
     var client = http.Client();
-    var apiUrl = Uri.parse("http://localhost:3001/waterauthority/deletemember");
+    var apiUrl = Uri.parse("http://localhost:3000/waterauthority/deletemember");
     var response = await client.post(apiUrl,
         headers: <String, String>{
           "Content-Type": "application/json; charset=UTF-8"
@@ -94,7 +94,7 @@ Future<List<Subadmin>> ViewSubadmin()async{
   Future<bool> checkUsernameExists(String username) async {
     try {
       var client = http.Client();
-      var apiurl = Uri.parse("http://localhost:3001/waterauthority//checkUsernam");
+      var apiurl = Uri.parse("http://localhost:3000/waterauthority//checkUsernam");
       var response = await client.post(
         apiurl,
         body: jsonEncode({"username": username}),

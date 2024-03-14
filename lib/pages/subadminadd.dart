@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:waterauthority/pages/view_subadmin.dart';
 import 'package:waterauthority/services/userService.dart';
 
@@ -53,11 +56,13 @@ class _SubadminaddState extends State<Subadminadd> {
         print("successfully added");
         showSimplePopup1(context, "SUB ADMIN ADDED");
         _formKey.currentState!.reset();
+        sendEmail(n4.text,n5.text,n6.text);
       } else {
         print("error");
       }
     }
   }
+
   void addSubAdmin(String Username) async {
     try {
       final usernameExists = await userLoginApi().checkUsernameExists(Username);
@@ -76,6 +81,31 @@ class _SubadminaddState extends State<Subadminadd> {
     } catch (error) {
       print("Error adding subadmin: $error");
       showSimplePopup1(context, "Failed to add subadmin");
+    }
+  }
+
+  Future<void> sendEmail(String recipientEmail, String username, String password) async {
+    try {
+      var client = http.Client();
+      var apiUrl = Uri.parse("http://localhost:3000/waterauthority/sendEmail");
+      var response = await client.post(
+        apiUrl,
+        body: jsonEncode({
+          'to': recipientEmail,
+          'subject': 'Test Email',
+          'text': '',
+          'username': username, // Include the username
+          'password': password, // Include the password
+        }),
+        headers: {"Content-Type": "application/json; charset=UTF-8"},
+      );
+      if (response.statusCode == 200) {
+        print('Email sent successfully');
+      } else {
+        print('Failed to send email: ${response.body}');
+      }
+    } catch(error) {
+      print('Error sending email: $error');
     }
   }
 
@@ -185,6 +215,7 @@ class _SubadminaddState extends State<Subadminadd> {
                   ),
                   SizedBox(height: 30),
                   TextFormField(
+
                     controller: n6,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -224,3 +255,4 @@ class _SubadminaddState extends State<Subadminadd> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
+
