@@ -41,7 +41,7 @@ class _SubadminaddState extends State<Subadminadd> {
     }
     return null;
   }
-
+    // username
   void submit() async {
     if (_formKey.currentState!.validate()) {
       final response = await userLoginApi().addSubAdmin(
@@ -97,7 +97,7 @@ class _SubadminaddState extends State<Subadminadd> {
           'username': username, // Include the username
           'password': password, // Include the password
         }),
-        headers: {"Content-Type": "application/json; charset=UTF-8"},
+        headers: {"Content-Type": "application/json"},
       );
       if (response.statusCode == 200) {
         print('Email sent successfully');
