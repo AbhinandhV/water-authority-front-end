@@ -56,7 +56,7 @@ class _SubadminaddState extends State<Subadminadd> {
         print("successfully added");
         showSimplePopup1(context, "SUB ADMIN ADDED");
         _formKey.currentState!.reset();
-        sendEmail(n4.text,n5.text,n6.text);
+        sendEmail(n4.text,n5.text,n6.text,n1.text);
       } else {
         print("error");
       }
@@ -84,7 +84,7 @@ class _SubadminaddState extends State<Subadminadd> {
     }
   }
 
-  Future<void> sendEmail(String recipientEmail, String username, String password) async {
+  Future<void> sendEmail(String recipientEmail, String username, String password,String name) async {
     try {
       var client = http.Client();
       var apiUrl = Uri.parse("http://localhost:3000/waterauthority/sendEmail");
@@ -96,6 +96,7 @@ class _SubadminaddState extends State<Subadminadd> {
           'text': '',
           'username': username, // Include the username
           'password': password, // Include the password
+          'name': name,
         }),
         headers: {"Content-Type": "application/json"},
       );
